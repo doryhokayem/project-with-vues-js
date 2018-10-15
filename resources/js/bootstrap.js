@@ -57,5 +57,3 @@ if (token) {
 import Form from './core/Form';
 
 window.Form = Form;
-
-// console.log(Form);

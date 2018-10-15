@@ -20,22 +20,5 @@ Vue.component('form-component', require('./components/FormComponent.vue'));
 
 const app = new Vue({
     el: '#app',
-    data() {
-        return {
-            form: new Form({
-                name: '',
-                description: '',
-                price: ''
-            })
-        }
-    },
-    methods: {
-        onSubmit() {
-            this.form.post('/products')
-                .then(response => alert('Success'))
-                .catch(error => {
-                    console.log(error.response.data);
-                })
-        }
-    }
+    
 });
