@@ -15,8 +15,27 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+Vue.component('form-component', require('./components/FormComponent.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data() {
+        return {
+            form: new Form({
+                name: '',
+                description: '',
+                price: ''
+            })
+        }
+    },
+    methods: {
+        onSubmit() {
+            this.form.post('/products')
+                .then(response => alert('Success'))
+                .catch(error => {
+                    console.log(error.response.data);
+                })
+        }
+    }
 });

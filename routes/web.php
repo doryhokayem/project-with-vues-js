@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::resource('products', 'ProductController');
+
+Auth::routes(['verify' => true]);
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('logout', array('uses' => 'HomeController@doLogout'));
+
+Route::get('products/create', 'ProductController@create');
+Route::post('products', 'ProductController@store');

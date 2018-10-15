@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Laravel</title>
 
         <!-- Fonts -->
@@ -84,7 +84,7 @@
                     Laravel
                 </div>
 
-                <div class="links">
+                <div id="app" class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
@@ -94,5 +94,8 @@
                 </div>
             </div>
         </div>
+          <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+         <script src="https://unpkg.com/vue@2.1.6/dist/vue.js"></script>
+         <script src="/js/app.js"></script>
     </body>
 </html>

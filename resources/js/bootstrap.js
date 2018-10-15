@@ -54,3 +54,8 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+import Form from './core/Form';
+
+window.Form = Form;
+
+// console.log(Form);
