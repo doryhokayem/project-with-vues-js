@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Mail\NewProduct;
 use App\Events\EmailEvent;
+use App\Mail\NewProduct;
 use App\Category;
 use App\Product;
 use App\User;
@@ -22,13 +22,16 @@ class ProductController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * 
+     * @param \Illuminate\Http\Request
+     * 
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-
-        $q = $request->has('q') ? $request->q : '';
+        $q = $request->has('q')
+            ? $request->q 
+            : '';
         $products = Product::where('name', 'LIKE', '%' . $q . '%')->paginate(5);
 
         return view('products.index')->with('products', $products);
@@ -49,49 +52,37 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * 
      * @return \Illuminate\Http\Response
      */
     public function store(ProductRequest $request)
     {
-
-        // $this->validate(request(), [
-        //     'name' => 'required',
-        //     "description" => 'required'
-        // ]);
-
-        // Product::forceCreate([
-        //     'name' => request('name'),
-        //     'description' => request('description')
-        // ]);
-
-        // return ['message' => 'Product Created!'];
-    
-       
         $product = new Product();
         
         $product->name = $request->input('name');
         if ($request->has('description'))
-        $product->description = $request->input('description');
+            $product->description = $request->input('description');
         $product->price = $request->input('price');
         if ($request->has('URL'))
-        $product->URL = $request->input('URL');
+            $product->URL = $request->input('URL');
         $product->active = $request->input('active') ? true : false;
         $product->user_id = auth()->id();
-        $product->categories_id = 1;
+        $product->categories_id =$request->input('selectedCategory');
 
-        $product->save();
-
+        if ($product->save()) { 
+            event(new EmailEvent());
+            return redirect('/products');
         }
-        // event(new EmailEvent());
-        // if ($product->save())
-        //     return redirect('/products');
-        // return redirect()->back()
-        //     ->withErrors(['error_message' => 'Could not create new product.']);
+        return redirect()->back()
+            ->withErrors(['error_message' => 'Could not create new product.']);
+    }
    
     /**
      * Remove the specified resource from storage.
+     * 
      * @param  \App\product $product
      * @param  int  $id
+     * 
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product)

@@ -1,8 +1,9 @@
 <?php
 
 namespace App;
-use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
  
 
 class Product extends Model
@@ -17,8 +18,7 @@ class Product extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-
+    
     protected $dates = [ 'deleted_at' ];
     protected $fillable=['name', 'active','price'];
       

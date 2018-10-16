@@ -2,6 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
 <style>
     html, body {
+  padding-top: 40px;
   background-color: #fff;
   color: #636b6f;
   font-family: 'Nunito', sans-serif;
@@ -90,17 +91,26 @@ border-radius: 5px;
   right: 450px;
   top: 50px;
 }
+ 
 </style>
     <head>
-    @csrf
-    <meta charset="utf-8">
+        <meta charset="utf-8">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ config('app.name', 'Products') }}</title> 
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
         <link href="{{ asset('/css/app.css') }}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css">
+        <style>body { padding-top: 40px; }</style>
     </head>
+    
     <body>
-     
-         @yield('content')
+        <div id="app" class="container">
+        @yield('content')
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.js"></script>
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.js"></script>
+        <script src="/js/app.js"></script>
     </body>
+    
 </html>
